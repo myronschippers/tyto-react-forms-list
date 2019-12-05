@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
@@ -7,12 +6,16 @@ class App extends Component {
     super(props);
 
     this.state = {
-      form: {
-        name: null,
-        age: null,
-        height: null,
-      },
-      people: [],
+      inputName: null,
+      inputAge: null,
+      inputHeight: null,
+      people: [
+        {
+          name: 'Scott',
+          age: 36,
+          height: 4,
+        }
+      ],
       accordionOpen: false,
     }
 
@@ -32,16 +35,21 @@ class App extends Component {
 
   multiInputHandler = (event, inputKey) => {
     this.setState({
-      form: {
-        ...this.state.form,
-        [inputKey]: event.target.value,
-      }
+      [inputKey]: event.target.value
     });
   }
 
   handleSubmitClick = (event) => {
-    console.log(this.state);
-    console.log(this.state['age']);
+    this.setState({
+      people: [
+        ...this.state.people,
+        {
+          name: this.state.inputName,
+          age: this.state.inputAge,
+          height: this.state.inputHeight
+        }
+      ]
+    });
   }
 
   toggleAccordion = (event) => {
@@ -54,9 +62,9 @@ class App extends Component {
     let results = (
       <div>
         Recording:
-        <p>{this.state.form.name}</p>
-        <p>{this.state.form.age}</p>
-        <p>{this.state.form.height}</p>
+        <p>{this.state.inputName}</p>
+        <p>{this.state.inputAge}</p>
+        <p>{this.state.inputHeight}</p>
       </div>
     );
 
@@ -64,9 +72,11 @@ class App extends Component {
       results = null;
     }
 
-    const peopleElements = this.state.people.map((item, index) => {
-      return <div>{item.name} is {item.age} years old.</div>
-    });
+    const peopleElements = this.state.people.map(
+      (item, index) => {
+        return <p key={index}>{item.name} is {item.age} years old.</p>
+      }
+    );
 
     return (
       
@@ -78,17 +88,17 @@ class App extends Component {
         <input
           type="text"
           placeholder="Name"
-          onChange={(event) => this.multiInputHandler(event, 'name')}
+          onChange={(event) => this.multiInputHandler(event, 'inputName')}
         />
         <input
           type="number"
           placeholder="Age"
-          onChange={(event) => this.multiInputHandler(event, 'age')}
+          onChange={(event) => this.multiInputHandler(event, 'inputAge')}
         />
         <input
           type="number"
           placeholder="Height"
-          onChange={(event) => this.multiInputHandler(event, 'height')}
+          onChange={(event) => this.multiInputHandler(event, 'inputHeight')}
         />
 
         <button onClick={this.handleSubmitClick}>Submit</button>
