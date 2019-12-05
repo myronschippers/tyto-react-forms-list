@@ -1,3 +1,7 @@
+
+html {
+  font-size: 18px;
+}
 .App {
   text-align: center;
 }
@@ -30,4 +34,9 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.woot {
+  font-weight: bold;
+  font-size: 1.8rem;
 }

@@ -6,12 +6,17 @@ class App extends Component {
     super(props);
 
     this.state = {
-      inputName: null,
-      inputAge: null,
-      inputHeight: null,
+      inputName: '',
+      inputAge: '',
+      inputHeight: '',
       people: [
         {
           name: 'Scott',
+          age: 36,
+          height: 4,
+        },
+        {
+          name: 'Scott (flash)',
           age: 36,
           height: 4,
         }
@@ -48,7 +53,10 @@ class App extends Component {
           age: this.state.inputAge,
           height: this.state.inputHeight
         }
-      ]
+      ],
+      inputAge: '',
+      inputHeight: '',
+      inputName: ''
     });
   }
 
@@ -74,7 +82,11 @@ class App extends Component {
 
     const peopleElements = this.state.people.map(
       (item, index) => {
-        return <p key={index}>{item.name} is {item.age} years old.</p>
+        return <span key={index}>
+          name: {item.name}<br/>
+          age: {item.age} <br/>
+          height: {item.height}<br/>
+        </span>
       }
     );
 
@@ -89,21 +101,25 @@ class App extends Component {
           type="text"
           placeholder="Name"
           onChange={(event) => this.multiInputHandler(event, 'inputName')}
+          value={this.state.inputName}
         />
         <input
           type="number"
           placeholder="Age"
           onChange={(event) => this.multiInputHandler(event, 'inputAge')}
+          value={this.state.inputAge}
         />
         <input
           type="number"
           placeholder="Height"
           onChange={(event) => this.multiInputHandler(event, 'inputHeight')}
+          value={this.state.inputHeight}
         />
 
         <button onClick={this.handleSubmitClick}>Submit</button>
 
-        <div>
+        <div className="woot">
+          <h2>Your PEEPS!!!</h2>
           {peopleElements}
         </div>
       </div>
